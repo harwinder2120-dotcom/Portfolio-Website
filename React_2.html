@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Like Button</title>
+
+    <!-- Linking to React and ReactDOM via CDN URLs -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+</head>
+
+<body>
+
+    <!-- This is where the React button will appear -->
+    <div id="like_button_container"></div>
+
+    <script>
+        // Shortcut for creating React elements
+        const X = React.createElement;
+
+        // Creating a React component class
+        class likeButton extends React.Component {
+            constructor(props) {
+                super(props); // Calls the parent constructor
+                this.state = { liked: false }; // Component state
+            }
+
+            // Render method determines what appears on the page
+            render() {
+                if (this.state.liked) {
+                    return 'You clicked the like button!';
+                }
+
+                // Return a button element
+                return X(
+                    'button',
+                    { onClick: () => this.setState({ liked: true }) },
+                    'Like'
+                );
+            }
+        }
+
+        // Find the container div and render the component inside it
+        const domContainer = document.querySelector('#like_button_container');
+        ReactDOM.render(X(likeButton), domContainer);
+    </script>
+
+</body>
+</html>
