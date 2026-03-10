@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Timer Assignment</title>
+
+    <!-- Linking to React and ReactDOM files stored in your React projects folder -->
+    <script src="react.js"></script>
+    <script src="react-dom.js"></script>
+</head>
+
+<body>
+
+    <!-- This is where our React code will be rendered -->
+    <div id="My_React_Code"></div>
+
+    <script>
+        // Creating a React component using React.createClass
+        var Counter = React.createClass({
+            render: function() {
+
+                // Convert milliseconds to tenths of a second
+                var time_Passed = Math.round(this.props.time_Passed / 100);
+
+                // Convert tenths into seconds with one decimal place
+                var seconds_Passed = time_Passed / 10 + (time_Passed % 10 ? '' : '.0');
+
+                // Text that will be displayed on the page
+                var text = 'My React code started running ' +
+                    seconds_Passed + ' seconds ago!';
+
+                // Returning a <p> element using React.DOM
+                return React.DOM.p(null, text);
+            }
+        });
+
+        // Creating a factory for the Counter component
+        var counter_Factory = React.createFactory(Counter);
+
+        // Getting the starting time
+        var start_Counting = new Date().getTime();
+
+        // Updating the timer every 50 milliseconds
+        setInterval(function() {
+            ReactDOM.render(
+                counter_Factory({
+                    time_Passed: new Date().getTime() - start_Counting
+                }),
+                document.getElementById('My_React_Code')
+            );
+        }, 50);
+    </script>
+
+</body>
+</html>
